@@ -1,5 +1,6 @@
 import json
 
+
 def response(status_code, body):
     resp = {
         "statusCode": status_code,
@@ -8,6 +9,6 @@ def response(status_code, body):
             "Content-Type": "application/json",
             "Access-Control-Allow-Origin": "*",
             "Access-Control-Allow-Credentials": True,
-        }
+        },
     }
     return resp

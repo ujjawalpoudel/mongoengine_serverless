@@ -6,3 +6,12 @@ create_user:
         method: post
         path: create_user
         cors: true
+
+update_user:
+  handler: src/functions/profile/update_user.update_user_main
+  layers: ${self:custom.layers.mongoengine}
+  events:
+    - http:
+        method: put
+        path: update_user
+        cors: true

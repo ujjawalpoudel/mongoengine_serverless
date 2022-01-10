@@ -4,7 +4,7 @@ useDotenv: true
 custom:
   defaultStage: dev
   serviceName: ${self:service}-serverless
-  layers: 
+  layers:
     mongoengine: arn:aws:lambda:ap-south-1:725446648250:layer:evisiting-layers-mongo-engine:13
   project: ${self:service}
   developer: Ujjawal Poudel
@@ -50,4 +50,3 @@ package:
 
 functions:
   - ${file(src/functions/profile/profile.yml)}
-

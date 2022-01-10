@@ -7,7 +7,6 @@ from mongoengine.fields import DateTimeField, StringField, IntField, EmailField
 from mongoengine import ValidationError
 
 #  Read key-value pairs from a .env file and set them as environment variables
-# load_dotenv()
 user = os.getenv("DB_USER")
 password = os.getenv("DB_PASSWORD")
 database_name = os.getenv("DATABASE_NAME")

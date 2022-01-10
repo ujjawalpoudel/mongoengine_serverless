@@ -5,18 +5,16 @@ from src.controller.cors import response
 
 
 def create_user_main(event, context):
-    body = {}
+    response_body = {}
     try:
-        data = json.loads(event['body'])
-        print(data)
+        data = json.loads(event["body"])
         user = User(**data).save()
-        body["data"] = json.loads(user.to_json())
-        body["status"] = True
-        body["msg"] = "User created successfully"
+        response_body["data"] = json.loads(user.to_json())
+        response_body["status"] = True
+        response_body["msg"] = "User created successfully"
         status_code = 200
     except Exception as e:
-        body["msg"] = str(e)
-        body["status"] = False
+        response_body["msg"] = str(e)
+        response_body["status"] = False
         status_code = 400
-    return response(status_code, body)
-
+    return response(status_code, response_body)
