@@ -7,7 +7,7 @@ from src.controller.cors import response
 def delete_user_main(event, context):
     response_body = {}
     try:
-        data = json.loads(event['body'])
+        data = json.loads(event["body"])
         user_id = data.pop("id", None)
         if user_id is not None:
             User.objects.get(id=user_id).delete()
@@ -22,5 +22,3 @@ def delete_user_main(event, context):
         response_body["status"] = False
         status_code = 400
     return response(status_code, response_body)
-
-

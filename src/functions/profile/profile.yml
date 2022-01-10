@@ -24,3 +24,12 @@ delete_user:
         method: delete
         path: delete_user
         cors: true
+
+read_users:
+  handler: src/functions/profile/read_users.read_users_main
+  layers: ${self:custom.layers.mongoengine}
+  events:
+    - http:
+        method: get
+        path: read_users
+        cors: true
