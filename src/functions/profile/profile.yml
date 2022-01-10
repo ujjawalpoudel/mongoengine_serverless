@@ -1,0 +1,8 @@
+create_user:
+  handler: src/functions/profile/create_user.create_user_main
+  layers: ${self:custom.layers.mongoengine}
+  events:
+    - http:
+        method: post
+        path: create_user
+        cors: true

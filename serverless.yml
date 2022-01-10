@@ -1,0 +1,53 @@
+service: mongoengine-practice
+useDotenv: true
+
+custom:
+  defaultStage: dev
+  serviceName: ${self:service}-serverless
+  layers: 
+    mongoengine: arn:aws:lambda:ap-south-1:725446648250:layer:evisiting-layers-mongo-engine:13
+  project: ${self:service}
+  developer: Ujjawal Poudel
+  team: ${self:service}-backend-developer
+
+provider:
+  name: aws
+  runtime: python3.8
+  stage: ${opt:stage, self:custom.defaultStage}
+  region: ap-south-1
+  profile: smartad
+  lambdaHashingVersion: 20200924
+  logRetentionInDays: 1
+  deploymentBucket:
+    blockPublicAccess: true
+    name: ${self:custom.serviceName}-deployment-bucket-${self:provider.stage}
+    maxPreviousDeploymentArtifacts: 10
+  stackTags: # Optional CF stack tags
+    btlTeam: ${self:custom.team}
+    btlDeveloper: ${self:custom.developer}
+    btlProject: ${self:custom.project}
+
+plugins:
+  - serverless-deployment-bucket
+  - serverless-dotenv-plugin
+
+
+package:
+  individually: true
+  patterns:
+    - "!node_modules/**"
+    - "!package.json"
+    - "!README.md"
+    - "!.serverless/**"
+    - "!serverless.yml"
+    - "!.gitignore"
+    - "!.env"
+    - "!requirements.txt"
+    - "!venv/**"
+    - "!package-lock.json"
+    - "!.npmignore"
+  excludeDevDependencies: true
+
+functions:
+  - ${file(src/functions/profile/profile.yml)}
+
