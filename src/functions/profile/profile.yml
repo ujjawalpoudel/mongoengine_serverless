@@ -15,3 +15,12 @@ update_user:
         method: put
         path: update_user
         cors: true
+
+delete_user:
+  handler: src/functions/profile/delete_user.delete_user_main
+  layers: ${self:custom.layers.mongoengine}
+  events:
+    - http:
+        method: delete
+        path: delete_user
+        cors: true
