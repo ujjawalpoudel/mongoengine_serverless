@@ -1,19 +1,24 @@
 import json
+import math
 
 from models import User
 from src.controller.cors import response
+from src.controller.helpers import skiplimit
 
 
 def read_users_main(event, context):
     response_body = {}
     try:
         parameters = event["queryStringParameters"]
-        limit = int(parameters.pop("limit", 10))
-        offset = int(parameters.pop("offset", 0))
-        # * limit means items per page
-        # * offset means skip that many rows before beginning to return rows
+        page_size = int(parameters.pop("page_size", 10))
+        page_num = int(parameters.pop("page_num", 1))
+
+        offset, limit = skiplimit(page_size, page_num)
+
         users = User.objects.skip(offset).limit(limit)
+
         response_body["data"] = json.loads(users.to_json())
+        response_body["total_page_num"] = math.ceil(users.count() / page_size)
         response_body["msg"] = "User query successfully"
         response_body["status"] = True
         status_code = 200
