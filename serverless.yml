@@ -5,14 +5,14 @@ custom:
   defaultStage: dev
   serviceName: ${self:service}-serverless
   layers:
-    mongoengine: arn:aws:lambda:ap-south-1:725446648250:layer:evisiting-layers-mongo-engine:13
+    mongoengine: arn:aws:lambda:ap-south-1:725446648250:layer:aws-layers-demo-dev-mongoengine:7
   project: ${self:service}
   developer: Ujjawal Poudel
   team: ${self:service}-backend-developer
 
 provider:
   name: aws
-  runtime: python3.8
+  runtime: python3.7
   stage: ${opt:stage, self:custom.defaultStage}
   region: ap-south-1
   profile: smartad
