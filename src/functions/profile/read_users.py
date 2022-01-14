@@ -2,6 +2,7 @@ import json
 import math
 
 from models import User
+from pydantic_models import PaginationModel
 from src.controller.cors import response
 from src.controller.helpers import skiplimit
 
@@ -10,8 +11,13 @@ def read_users_main(event, context):
     response_body = {}
     try:
         parameters = event["queryStringParameters"]
-        page_size = int(parameters.pop("page_size", 10))
-        page_num = int(parameters.pop("page_num", 1))
+        if(parameters is not None):
+            PaginationModel(**parameters)
+            page_size = int(parameters.pop("page_size", 10))
+            page_num = int(parameters.pop("page_num", 1))
+        else:
+            page_size = 10
+            page_num = 1
 
         offset, limit = skiplimit(page_size, page_num)
 
