@@ -2,7 +2,8 @@ import json
 import math
 
 from models import User
-from pydantic_models import PaginationModel
+from src.validators import PaginationModel
+
 from src.controller.cors import response
 from src.controller.helpers import skiplimit
 

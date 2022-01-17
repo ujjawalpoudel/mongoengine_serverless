@@ -2,7 +2,7 @@ import json
 
 from models import User
 from src.controller.cors import response
-from pydantic_models import  UserModel
+from src.validators import UserModel
 
 
 def create_user_main(event, context):
