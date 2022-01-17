@@ -6,11 +6,11 @@ from src.utils.exception_handler import ValidationError
 
 
 class UserModel(pydantic.BaseModel):
-    name: Optional[str]
-    age: Optional[int]
-    email: Optional[str]
-    phone: Optional[str]
-    address: Optional[str]
+    name: str
+    age: int
+    email: str
+    phone: str
+    address: str
 
     @pydantic.validator("email")
     @classmethod
