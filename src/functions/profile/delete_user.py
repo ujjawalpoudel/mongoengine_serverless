@@ -2,12 +2,14 @@ import json
 
 from models import User
 from src.controller.cors import response
+from src.validators import DeleteUserModel
 
 
 def delete_user_main(event, context):
     response_body = {}
     try:
         data = json.loads(event["body"])
+        # DeleteUserModel(**data)
         user_id = data.pop("id", None)
         if user_id is not None:
             User.objects.get(id=user_id).delete()

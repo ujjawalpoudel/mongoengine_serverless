@@ -2,7 +2,7 @@ import re
 import pydantic
 from typing import List, Optional
 
-from src.utils.exception_handle import EmailValidationError, PhoneNumberValidationError
+from src.utils.exception_handler import ValidationError
 
 
 class UserModel(pydantic.BaseModel):
@@ -21,7 +21,7 @@ class UserModel(pydantic.BaseModel):
             return email
         else:
             message = "Given email address ({0}) is not valid.".format(email)
-            raise EmailValidationError(email=email, message=message)
+            raise ValidationError(value=email, message=message)
 
     @pydantic.validator("phone")
     @classmethod
@@ -32,4 +32,4 @@ class UserModel(pydantic.BaseModel):
             return phone
         else:
             message = "Given phone number ({0}) is not valid.".format(phone)
-            raise PhoneNumberValidationError(phone=phone, message=message)
+            raise ValidationError(value=phone, message=message)

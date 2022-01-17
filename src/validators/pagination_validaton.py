@@ -2,7 +2,7 @@ import re
 import pydantic
 from typing import List, Optional
 
-from src.utils.exception_handle import PaginationValidationError
+from src.utils.exception_handler import ValidationError
 
 
 class PaginationModel(pydantic.BaseModel):
@@ -16,7 +16,7 @@ class PaginationModel(pydantic.BaseModel):
             return int(page_size)
         except ValueError:
             message = "Given page_size ({0}) is not valid integer.".format(page_size)
-            raise PaginationValidationError(item=page_size, message=message)
+            raise ValidationError(value=page_size, message=message)
 
     @pydantic.validator("page_num")
     @classmethod
@@ -25,4 +25,4 @@ class PaginationModel(pydantic.BaseModel):
             return int(page_num)
         except ValueError:
             message = "Given page_num ({0}) is not valid integer.".format(page_num)
-            raise PaginationValidationError(item=page_num, message=message)
+            raise ValidationError(value=page_num, message=message)
