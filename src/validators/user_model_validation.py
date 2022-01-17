@@ -1,6 +1,5 @@
 import re
 import pydantic
-from typing import List, Optional
 
 from src.utils.exception_handler import ValidationError
 
