@@ -2,12 +2,14 @@ import json
 
 from models import User
 from src.controller.cors import response
+from src.validators import UpdateUserModel
 
 
 def update_user_main(event, context):
     response_body = {}
     try:
         data = json.loads(event["body"])
+        UpdateUserModel(**data)
         user_id = data.pop("id", None)
         if user_id is not None:
             # * List of attributes of model schema_fields, which are not required for update operations
@@ -20,6 +22,7 @@ def update_user_main(event, context):
             # * Update given parameters in respective Collection
             user = User.objects.get(id=user_id)
             user.update(**data_update)
+            user.reload()
 
             response_body["data"] = json.loads(user.to_json())
             response_body["msg"] = "User updated successfully"

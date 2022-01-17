@@ -6,7 +6,7 @@ from src.utils.exception_handler import ValidationError
 
 class DeleteUserModel(pydantic.BaseModel):
     id: str
-    
+
     @pydantic.validator("id")
     @classmethod
     def id_valid_check(cls, id) -> None:
